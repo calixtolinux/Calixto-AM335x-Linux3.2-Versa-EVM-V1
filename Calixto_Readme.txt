@@ -29,7 +29,7 @@ While compiling your Kernel, if found any firmware related error,
                        -> External firmware blobs to build into the kernel library (Press Enter and type 'am335x-pm-firmware.bin')
                        -> Firmware blobs root directory  (Press Enter and type 'firmware')
      
-    -> Download the firmware from the GIT Location (https://github.com/jithincalixto/Calixto-AM335x-Linux-Firmware.git)
+    -> Download the firmware from the GIT Location (https://github.com/calixtolinux/Calixto-AM335x-Linux-Firmware.git)
     -> Copy Downloaded file to Kernel-Directory/firmware/
 
     -> Recompile the Kernel by make uImage
