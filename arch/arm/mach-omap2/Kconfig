@@ -445,6 +445,11 @@ config CALIXTO_CAN_SUPPORT
        help
          Support for CAN0 for Calixto-EVM
 
+config CALIXTO_RS485_SUPPORT
+       bool "RS485"
+       help
+         Support for RS485 for Calixto-EVM
+
 endchoice
 
 choice

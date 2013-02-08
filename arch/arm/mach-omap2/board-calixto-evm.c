@@ -366,6 +366,13 @@ static struct pinmux_config can_pin_mux[] = {
         {NULL, 0},
 };
 
+/* Module Pin mux for RS485_UART1 */
+static struct pinmux_config rs485_uart1_pin_mux[] = {
+        {"uart1_rxd.uart1_rxd", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
+        {"uart1_txd.uart1_txd", OMAP_MUX_MODE0 | AM33XX_PULL_ENBL},
+        {NULL, 0},
+};
+
 /*
 * @pin_mux - single module pin-mux structure which defines pin-mux
 *			details for all its pins.
@@ -441,7 +448,7 @@ static struct pinmux_config mmc2_wl12xx_pin_mux[] = {
 static struct pinmux_config uart1_wl12xx_pin_mux[] = {
         {"uart1_ctsn.uart1_ctsn", OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
         {"uart1_rtsn.uart1_rtsn", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT},
-        {"uart1_rxd.uart1_rxd", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
+	{"uart1_rxd.uart1_rxd", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
         {"uart1_txd.uart1_txd", OMAP_MUX_MODE0 | AM33XX_PULL_ENBL},
         {NULL, 0},
 };
@@ -549,6 +556,13 @@ static void uart3_init(int evm_id, int profile)
 	return;
 }
 
+/* setup RS485_UART1 */
+static void rs485_uart1_init(int evm_id, int profile)
+{
+	setup_pin_mux(rs485_uart1_pin_mux);
+	return;
+}
+
 static void mcasp0_audio_init(int evm_id, int profile)
 {
         unsigned int mcasp_instance = 0;   /* 0-MCASP0, 1-MCASP1 */
@@ -567,29 +581,9 @@ static struct mtd_partition am335x_nand_partitions[] = {
 		.size           = SZ_128K,
 	},
 	{
-		.name           = "SPL.backup1",
-		.offset         = MTDPART_OFS_APPEND,	/* Offset = 0x20000 */
-		.size           = SZ_128K,
-	},
-	{
-		.name           = "SPL.backup2",
-		.offset         = MTDPART_OFS_APPEND,	/* Offset = 0x40000 */
-		.size           = SZ_128K,
-	},
-	{
-		.name           = "SPL.backup3",
-		.offset         = MTDPART_OFS_APPEND,	/* Offset = 0x60000 */
-		.size           = SZ_128K,
-	},
-	{
-		.name           = "U-Boot",
-		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x80000 */
-		.size           = 15 * SZ_128K,
-	},
-	{
 		.name           = "U-Boot Env",
 		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x260000 */
-		.size           = 1 * SZ_128K,
+		.size           = SZ_128K,
 	},
 	{
 		.name           = "Kernel",
@@ -850,6 +844,9 @@ static struct evm_dev_cfg calixto_dev_cfg[] = {
         {wl12xx_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
         #endif
         {uart3_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
+	#ifdef CONFIG_CALIXTO_RS485_SUPPORT
+        {rs485_uart1_init, DEV_ON_BASEBOARD, PROFILE_NONE},
+	#endif
         {NULL, 0, 0},
 };
 
