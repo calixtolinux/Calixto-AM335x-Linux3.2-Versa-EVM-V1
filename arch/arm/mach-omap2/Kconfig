@@ -471,6 +471,12 @@ config CALIXTO_LCD7_SUPPORT
        help
          Support for 7 Inch LCD Support for Calixto-EVM
 
+config CALIXTO_LCD35_SUPPORT
+       bool "3.5-Inch LCD support"
+       help
+         Support for 3.5 Inch LCD Support for Calixto-EVM
+
+
 endchoice
 
 endmenu

@@ -231,21 +231,7 @@ static vsync_callback_t vsync_cb_handler;
 static void *vsync_cb_arg;
 
 static struct da8xx_panel known_lcd_panels[] = {
-	/* Newhaven Display */
 	[0] = {
-		.name = "NHD-4.3-ATXI#-T-1",
-		.width = 480,
-		.height = 272,
-		.hfp = 8,
-		.hbp = 43,
-		.hsw = 4,
-		.vfp = 4,
-		.vbp = 12,
-		.vsw = 10,
-		.pxl_clk = 9000000,
-		.invert_pxl_clk = 0,
-	},
-	[1] = {
                  .name = "CalixtoVGA",
                  .width = 640,
                  .height = 480,
@@ -258,7 +244,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                  .pxl_clk = 25000000,
                  .invert_pxl_clk = 1,
         },
-        [2] = {
+        [1] = {
                 .name = "CALIXTOLCD4",
                 .width = 480,
                 .height = 272,
@@ -271,7 +257,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .pxl_clk = 9000000,
                 .invert_pxl_clk = 0,
         },
-        [3] = {
+        [2] = {
                 .name = "CALIXTOLCD7",
                 .width = 800,
                 .height = 480,
@@ -282,6 +268,47 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .vbp = 10,
                 .vsw = 13,
                 .pxl_clk = 33000000,
+                .invert_pxl_clk = 0,
+        },
+	/* CRT Monitor or LCD Screen */
+        [3] = {
+                .name = "VGA_Monitor",
+                .width =  800,
+                .height = 600,
+                .hfp = 40,
+                .hbp = 88,
+                .hsw = 128,
+                .vfp = 1,
+                .vbp = 23,
+                .vsw = 4,
+                .pxl_clk = 40000000,
+                .invert_pxl_clk = 1,
+        },
+	/* Thinwent LCD*/
+	[4] = {
+                .name = "CRT_Monitor",
+                .width = 800,
+                .height = 600,
+                .hfp = 80,
+                .hbp = 80,
+                .hsw = 60,
+                .vfp = 2,
+                .vbp = 12,
+                .vsw = 4,
+                .pxl_clk = 37000000,
+                .invert_pxl_clk = 1,
+        },
+        [5] = {
+                .name = "Tianma_35",
+                .width = 320,
+                .height = 240,
+                .hfp = 20,
+                .hbp = 48,
+                .hsw = 20,
+                .vfp = 10,
+                .vbp = 12,
+                .vsw = 1,
+                .pxl_clk = 6000000,
                 .invert_pxl_clk = 0,
         },
 };

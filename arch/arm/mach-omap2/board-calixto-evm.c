@@ -113,6 +113,12 @@ struct da8xx_lcdc_platform_data calixtolcd7_pdata = {
         .type                   = "CALIXTOLCD7",
 };
 
+struct da8xx_lcdc_platform_data calixtolcd35_pdata = {
+        .manu_name              = "cslcd35",
+        .controller_data        = &lcd_cfg,
+        .type                   = "Tianma_35",
+};
+
 #include "common.h"
 
 /* TSc controller */
@@ -509,7 +515,11 @@ static void lcdc_init(int evm_id, int profile)
 	lcdc_pdata = &calixtolcd7_pdata;
         #endif
 
-        if (am33xx_register_lcdc(lcdc_pdata))
+        #ifdef CONFIG_CALIXTO_LCD35_SUPPORT
+	lcdc_pdata = &calixtolcd35_pdata;
+	#endif
+
+	if (am33xx_register_lcdc(lcdc_pdata))
                 pr_info("Failed to register LCDC device\n");
 
         return;
@@ -840,6 +850,9 @@ static struct evm_dev_cfg calixto_dev_cfg[] = {
 	#ifdef CONFIG_CALIXTO_LCD7_SUPPORT
         {tsc_init,      DEV_ON_BASEBOARD, PROFILE_NONE},
         #endif
+	#ifdef CONFIG_CALIXTO_LCD35_SUPPORT
+	{tsc_init,      DEV_ON_BASEBOARD, PROFILE_NONE},
+	#endif
         #ifdef CONFIG_CALIXTO_WLAN_SUPPORT
         {wl12xx_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
         #endif
