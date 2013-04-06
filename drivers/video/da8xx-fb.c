@@ -286,7 +286,7 @@ static struct da8xx_panel known_lcd_panels[] = {
         },
 	/* Thinwent LCD*/
 	[4] = {
-                .name = "CRT_Monitor",
+                .name = "Thinvent",
                 .width = 800,
                 .height = 600,
                 .hfp = 80,

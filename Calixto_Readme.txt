@@ -43,7 +43,7 @@ While compiling your Kernel, if found any firmware related error,
              -> [*] Calixto-EVM Pheripheral Configuration
                     -> [] Calixto-EVM Wireless Interface  (Enable only when the WLAN Module Present in Board)
                     ->    Calixto-EVM Interface Support   (Enable multiple Function in Board)(Currently CAN0 only Available, will update more features Later)
-                    ->    Calixto-EVM Display Support     (Enable Different LCD Size Configuration Eg: 4.7inch, VGA Mode, 7inch)
+                    ->    Calixto-EVM Display Support     (Enable Different LCD Size Configuration Eg: 4.7inch, VGA Mode, 7inch, 3.5inch)
 
 -> Any More Quires Email @: support@calixto.co.in
 -> More Product Details Log on to :www.calixto.co.in

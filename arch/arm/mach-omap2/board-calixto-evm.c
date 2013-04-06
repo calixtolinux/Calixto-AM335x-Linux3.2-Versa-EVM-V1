@@ -98,7 +98,7 @@ static struct lcd_ctrl_config lcd_cfg = {
 struct da8xx_lcdc_platform_data calixtovga_pdata = {
         .manu_name              = "VGA",
         .controller_data        = &lcd_cfg,
-        .type                   = "CalixtoVGA",
+        .type                   = "Thinvent",
 };
 
 struct da8xx_lcdc_platform_data calixtolcd4_pdata = {
