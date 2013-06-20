@@ -95,11 +95,21 @@ static struct lcd_ctrl_config lcd_cfg = {
         .raster_order           = 0,
 };
 
+#ifdef CONFIG_CALIXTO_VGA_SUPPORT
 struct da8xx_lcdc_platform_data calixtovga_pdata = {
         .manu_name              = "VGA",
         .controller_data        = &lcd_cfg,
-        .type                   = "Thinvent",
+        .type                   = "CalixtoVGA",
 };
+#endif
+
+#ifdef CONFIG_CALIXTO_VGA_1280X720
+struct da8xx_lcdc_platform_data calixtovga_pdata = {
+        .manu_name              = "VGA",
+        .controller_data        = &lcd_cfg,
+        .type                   = "1280@720res",
+};
+#endif
 
 struct da8xx_lcdc_platform_data calixtolcd4_pdata = {
         .manu_name              = "cslcd4",
@@ -506,6 +516,10 @@ static void lcdc_init(int evm_id, int profile)
         #ifdef CONFIG_CALIXTO_VGA_SUPPORT
         lcdc_pdata = &calixtovga_pdata;
         #endif
+
+	#ifdef CONFIG_CALIXTO_VGA_1280X720
+	lcdc_pdata = &calixtovga_pdata;
+  	#endif
 
         #ifdef CONFIG_CALIXTO_LCD4_SUPPORT
         lcdc_pdata = &calixtolcd4_pdata;
@@ -1107,7 +1121,7 @@ static void __init am335x_evm_init(void)
 	am33xx_mux_init(board_mux);
 	omap_serial_init();
 	am335x_rtc_init();
-	clkout2_enable();
+//	clkout2_enable();
 	am335x_evm_i2c_init();
 	omap_sdrc_init(NULL, NULL);
 	usb_musb_init(&musb_pdata_data);

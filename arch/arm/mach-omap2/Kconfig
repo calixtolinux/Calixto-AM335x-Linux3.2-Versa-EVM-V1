@@ -457,9 +457,14 @@ choice
        depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
 
 config CALIXTO_VGA_SUPPORT
-       bool "VGA Support"
+       bool "VGA 640@480 Resolution Support"
        help
          By Default EVM Supports Only VGA Interface
+
+config CALIXTO_VGA_1280X720
+       bool "VGA 1280@720 Resolution Support"
+       help
+         Switch to 1280@720 VGA Support
 
 config CALIXTO_LCD4_SUPPORT
        bool "4.7-Inch LCD support"

@@ -244,7 +244,20 @@ static struct da8xx_panel known_lcd_panels[] = {
                  .pxl_clk = 25000000,
                  .invert_pxl_clk = 1,
         },
-        [1] = {
+	[1] = {
+            .name = "1280@720res",
+			.width = 1280,
+			.height = 720,
+			.hfp = 109,
+			.hbp = 219,
+			.hsw = 39,
+			.vfp = 5,
+			.vbp = 19,
+			.vsw = 5,
+			.pxl_clk = 74250000,
+			.invert_pxl_clk = 0,
+	},
+        [2] = {
                 .name = "CALIXTOLCD4",
                 .width = 480,
                 .height = 272,
@@ -257,7 +270,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .pxl_clk = 9000000,
                 .invert_pxl_clk = 0,
         },
-        [2] = {
+        [3] = {
                 .name = "CALIXTOLCD7",
                 .width = 800,
                 .height = 480,
@@ -271,7 +284,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .invert_pxl_clk = 0,
         },
 	/* CRT Monitor or LCD Screen */
-        [3] = {
+        [4] = {
                 .name = "VGA_Monitor",
                 .width =  800,
                 .height = 600,
@@ -285,7 +298,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .invert_pxl_clk = 1,
         },
 	/* Thinwent LCD*/
-	[4] = {
+	[5] = {
                 .name = "Thinvent",
                 .width = 800,
                 .height = 600,
@@ -298,7 +311,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .pxl_clk = 37000000,
                 .invert_pxl_clk = 1,
         },
-        [5] = {
+        [6] = {
                 .name = "Tianma_35",
                 .width = 320,
                 .height = 240,
