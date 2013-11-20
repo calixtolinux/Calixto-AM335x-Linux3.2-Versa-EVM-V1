@@ -843,6 +843,7 @@ static void spi0_init(int evm_id, int profile)
 static struct evm_dev_cfg calixto_dev_cfg[] = {
         {lcdc_init,     DEV_ON_BASEBOARD, PROFILE_NONE},
         {spi0_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
+	{evm_nand_init, DEV_ON_BASEBOARD, PROFILE_NONE},
 	{rmii1_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
 	{mii2_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
 	{usb0_init,	DEV_ON_BASEBOARD, PROFILE_NONE},

@@ -429,21 +429,25 @@ config CALIXTO_WLAN_SUPPORT
           Calixto-EVM.
 
 choice
-       prompt "Calixto-EVM Interface_Support"
+       prompt "Calixto-EVM Interface Configure-I"
        depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
 
 config  CALIXTO_BLUETOOTH_SUPPORT
-        bool "Bluetooth"
+        bool "BLUETOOTH"
         depends on CALIXTO_WLAN_SUPPORT
         help
-          Choose Y Enable the Bluetooth interface to Calixto-EVM
-          If select N CAN0 Interface will configure. because they
-          share the same pin for both operation.
+	Select for Enabling Bluetooth Interface.
 
 config CALIXTO_CAN_SUPPORT
        bool "CAN0"
+       default y
        help
          Support for CAN0 for Calixto-EVM
+endchoice
+
+choice
+       prompt "Calixto-EVM Interface Configure-II"
+       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
 
 config CALIXTO_RS485_SUPPORT
        bool "RS485"
