@@ -342,6 +342,11 @@ config MACH_AM335XIAEVM
 	depends on SOC_OMAPAM33XX
 	default y
 
+config CALIXTO_AM335XNXT
+	bool "Calixto AM335x NXT Module"
+        depends on SOC_OMAPAM33XX
+        default y
+
 config MACH_OMAP_4430SDP
 	bool "OMAP 4430 SDP board"
 	default y
@@ -440,7 +445,6 @@ config  CALIXTO_BLUETOOTH_SUPPORT
 
 config CALIXTO_CAN_SUPPORT
        bool "CAN0"
-       default y
        help
          Support for CAN0 for Calixto-EVM
 endchoice
@@ -475,8 +479,13 @@ config CALIXTO_LCD4_SUPPORT
        help
          Support for 4.7 Inch LCD Support for Calixto-EVM
 
-config CALIXTO_LCD7_SUPPORT
-       bool "7-Inch LCD support"
+config CALIXTO_LCD7_SUPPORT_OLD
+       bool "7-Inch LCD support-old"
+       help
+         Support for 7 Inch LCD Support for Calixto-EVM
+
+config CALIXTO_LCD7_SUPPORT_NEW
+       bool "7-Inch LCD support-new"
        help
          Support for 7 Inch LCD Support for Calixto-EVM
 
@@ -487,7 +496,6 @@ config CALIXTO_LCD35_SUPPORT
 
 
 endchoice
-
 endmenu
 
 endif

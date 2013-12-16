@@ -117,10 +117,16 @@ struct da8xx_lcdc_platform_data calixtolcd4_pdata = {
         .type                   = "CALIXTOLCD4",
 };
 
-struct da8xx_lcdc_platform_data calixtolcd7_pdata = {
+struct da8xx_lcdc_platform_data calixtolcd7old_pdata = {
         .manu_name              = "cslcd7",
         .controller_data        = &lcd_cfg,
-        .type                   = "CALIXTOLCD7",
+        .type                   = "LCD7OLD",
+};
+
+struct da8xx_lcdc_platform_data calixtolcd7new_pdata = {
+        .manu_name              = "cslcd7",
+        .controller_data        = &lcd_cfg,
+        .type                   = "LCD7NEW",
 };
 
 struct da8xx_lcdc_platform_data calixtolcd35_pdata = {
@@ -440,16 +446,53 @@ static struct pinmux_config usb1_pin_mux[] = {
 	{NULL, 0},
 };
 
-#define AM335XEVM_WLAN_PMENA_GPIO	GPIO_TO_PIN(3, 16)
-#define AM335XEVM_WLAN_IRQ_GPIO		GPIO_TO_PIN(3, 10)
+#if defined(CONFIG_CALIXTO_AM335XNXT)
+   #define AM335XEVM_WLAN_PMENA_GPIO	GPIO_TO_PIN(0, 27)
+   #define AM335XEVM_WLAN_IRQ_GPIO	GPIO_TO_PIN(0, 26)
+#else
+   #define AM335XEVM_WLAN_PMENA_GPIO    GPIO_TO_PIN(3, 16)                           
+   #define AM335XEVM_WLAN_IRQ_GPIO      GPIO_TO_PIN(3, 10)
+#endif
 
 struct wl12xx_platform_data am335xevm_wlan_data = {
         .irq = OMAP_GPIO_IRQ(AM335XEVM_WLAN_IRQ_GPIO),
         .board_ref_clock = WL12XX_REFCLOCK_38_XTAL, /* 38.4Mhz */
-        .bt_enable_gpio = GPIO_TO_PIN(0, 20),
-        .wlan_enable_gpio = GPIO_TO_PIN(3, 16),
+#if defined(CONFIG_CALIXTO_AM335XNXT)
+        .bt_enable_gpio = GPIO_TO_PIN(0, 23),
+        .wlan_enable_gpio = GPIO_TO_PIN(0, 27),
+#else
+	.bt_enable_gpio = GPIO_TO_PIN(0, 20),
+        .wlan_enable_gpio = GPIO_TO_PIN(3, 16),    
+#endif
 };
 
+#if defined(CONFIG_CALIXTO_AM335XNXT)
+/* Module pin mux for wlan and bluetooth */                                          
+static struct pinmux_config mmc2_wl12xx_pin_mux[] = {                                
+        {"gpmc_ad12.mmc2_dat0", OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {"gpmc_ad13.mmc2_dat1", OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {"gpmc_ad14.mmc2_dat2", OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {"gpmc_ad15.mmc2_dat3",  OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {"gpmc_csn3.mmc2_cmd",  OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {"gpmc_clk.mmc2_clk",   OMAP_MUX_MODE3 | AM33XX_PIN_INPUT_PULLUP},           
+        {NULL, 0},                                                                   
+};
+
+static struct pinmux_config uart1_wl12xx_pin_mux[] = {                    
+        {"uart1_ctsn.uart1_ctsn", OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},    
+        {"uart1_rtsn.uart1_rtsn", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT}, 
+        {"uart1_rxd.uart1_rxd", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
+        {"uart1_txd.uart1_txd", OMAP_MUX_MODE0 | AM33XX_PULL_ENBL},       
+        {NULL, 0},
+};      
+
+static struct pinmux_config wl12xx_pin_mux[] = {
+        {"gpmc_ad11.gpio0_27",  OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {"gpmc_ad10.gpio0_26",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
+        {"gpmc_ad9.gpio0_23",   OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
+        {NULL, 0},
+};
+#else
 /* Module pin mux for wlan and bluetooth */
 static struct pinmux_config mmc2_wl12xx_pin_mux[] = {
         {"mii1_rxdv.mmc2_dat0", OMAP_MUX_MODE5 | AM33XX_PIN_INPUT_PULLUP},
@@ -476,6 +519,7 @@ static struct pinmux_config wl12xx_pin_mux[] = {
         {NULL, 0},
 
 };
+#endif
 
 static struct pinmux_config i2c0_pin_mux[] = {
         {"i2c0_sda.i2c0_sda", OMAP_MUX_MODE0 | AM33XX_SLEWCTRL_SLOW |
@@ -525,8 +569,12 @@ static void lcdc_init(int evm_id, int profile)
         lcdc_pdata = &calixtolcd4_pdata;
         #endif
 
-	#ifdef CONFIG_CALIXTO_LCD7_SUPPORT
-	lcdc_pdata = &calixtolcd7_pdata;
+	#ifdef CONFIG_CALIXTO_LCD7_SUPPORT_OLD
+	lcdc_pdata = &calixtolcd7old_pdata;
+        #endif
+
+	#ifdef CONFIG_CALIXTO_LCD7_SUPPORT_NEW
+        lcdc_pdata = &calixtolcd7new_pdata;
         #endif
 
         #ifdef CONFIG_CALIXTO_LCD35_SUPPORT
@@ -862,7 +910,7 @@ static struct evm_dev_cfg calixto_dev_cfg[] = {
         #ifdef CONFIG_CALIXTO_LCD4_SUPPORT
         {tsc_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
         #endif
-	#ifdef CONFIG_CALIXTO_LCD7_SUPPORT
+	#if defined(CONFIG_CALIXTO_LCD7_SUPPORT_OLD) || defined(CONFIG_CALIXTO_LCD7_SUPPORT_NEW)
         {tsc_init,      DEV_ON_BASEBOARD, PROFILE_NONE},
         #endif
 	#ifdef CONFIG_CALIXTO_LCD35_SUPPORT

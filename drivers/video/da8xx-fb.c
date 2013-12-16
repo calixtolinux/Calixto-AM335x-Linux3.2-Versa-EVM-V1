@@ -271,7 +271,7 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .invert_pxl_clk = 0,
         },
         [3] = {
-                .name = "CALIXTOLCD7",
+                .name = "LCD7OLD",
                 .width = 800,
                 .height = 480,
                 .hfp = 210,
@@ -322,6 +322,19 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .vbp = 12,
                 .vsw = 1,
                 .pxl_clk = 6000000,
+                .invert_pxl_clk = 0,
+        },
+	[7] = {
+                .name = "LCD7NEW",
+                .width = 800,
+                .height = 480,
+                .hfp = 39,
+                .hbp = 39,
+                .hsw = 47,
+                .vfp = 13,
+                .vbp = 29,
+                .vsw = 2,
+                .pxl_clk = 30000000,
                 .invert_pxl_clk = 0,
         },
 };
