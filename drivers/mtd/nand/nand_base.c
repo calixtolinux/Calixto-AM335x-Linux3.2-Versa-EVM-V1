@@ -3448,6 +3448,7 @@ int nand_scan_tail(struct mtd_info *mtd)
 			break;
 		}
 	}
+	mtd->subpage_sft = 0; 
 	chip->subpagesize = mtd->writesize >> mtd->subpage_sft;
 
 	/* Initialize state */

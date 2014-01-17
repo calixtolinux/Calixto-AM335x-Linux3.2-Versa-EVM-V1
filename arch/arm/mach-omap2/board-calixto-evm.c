@@ -648,25 +648,15 @@ static void mcasp0_audio_init(int evm_id, int profile)
 static struct mtd_partition am335x_nand_partitions[] = {
 /* All the partition sizes are listed in terms of NAND block size */
 	{
-		.name           = "SPL",
-		.offset         = 0,			/* Offset = 0x0 */
-		.size           = SZ_128K,
-	},
-	{
-		.name           = "U-Boot Env",
-		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x260000 */
-		.size           = SZ_128K,
-	},
-	{
-		.name           = "Kernel",
-		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x280000 */
-		.size           = 40 * SZ_128K,
-	},
-	{
-		.name           = "File System",
-		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x780000 */
-		.size           = MTDPART_SIZ_FULL,
-	},
+                .name           = "Kernel",
+                .offset         = 0,                    /* Offset = 0x000000 */
+                .size           = 80 * SZ_128K,
+        },
+        {
+                .name           = "File System",
+                .offset         = MTDPART_OFS_APPEND,   /* Offset = 0x780000 */
+                .size           = MTDPART_SIZ_FULL,
+        },
 };
 
 /* SPI flash information */
