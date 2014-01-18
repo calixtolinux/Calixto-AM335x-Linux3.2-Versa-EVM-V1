@@ -230,6 +230,9 @@ struct musb_platform_ops {
 	int (*simulate_babble_intr)(struct musb *musb);
 	void (*txfifoempty_intr_enable)(struct musb *musb, u8 ep_num);
 	void (*txfifoempty_intr_disable)(struct musb *musb, u8 ep_num);
+	void (*reinit)(u16 musb_type, struct musb *musb);
+	int (*enable_sof)(struct musb *musb);
+	int (*disable_sof)(struct musb *musb);
 };
 
 /*
@@ -476,6 +479,12 @@ struct musb {
 #endif
 	short			fifo_mode;
 	u8			txfifo_intr_enable;
+	u8			datatog_fix;
+	u8			hw_babble_ctrl;
+	u32			sof_enabled;
+	u32			sof_cnt;
+	u8			tx_isoc_sched_enable;
+	u8			sof_isoc_started;
 };
 
 static inline struct musb *gadget_to_musb(struct usb_gadget *g)
@@ -651,6 +660,22 @@ static inline int musb_simulate_babble_intr(struct musb *musb)
 	return musb->ops->simulate_babble_intr(musb);
 }
 
+static inline int musb_enable_sof(struct musb *musb)
+{
+	if (!musb->ops->enable_sof)
+		return -EINVAL;
+
+	return musb->ops->enable_sof(musb);
+}
+
+static inline int musb_disable_sof(struct musb *musb)
+{
+	if (!musb->ops->disable_sof)
+		return -EINVAL;
+
+	return musb->ops->disable_sof(musb);
+}
+
 static inline const char *get_dma_name(struct musb *musb)
 {
 #ifdef CONFIG_MUSB_PIO_ONLY
@@ -668,7 +693,7 @@ static inline const char *get_dma_name(struct musb *musb)
 		return "?dma?";
 #endif
 }
-extern int ep_config_from_table(struct musb *musb);
+extern void musb_reinit(u16 musb_type, struct musb *musb);
 
 extern void musb_gb_work(struct work_struct *data);
 /*-------------------------- ProcFS definitions ---------------------*/

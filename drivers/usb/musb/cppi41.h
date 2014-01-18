@@ -203,7 +203,7 @@
  * DMA Scheduler - Table Region
  */
 #define DMA_SCHED_TABLE_WORD_REG(n)	((n) << 2)
-#define MAX_SCHED_TBL_ENTRY     8
+#define MAX_SCHED_TBL_ENTRY     60
 
 /*
  * CPPI 4.1 Host Packet Descriptor
@@ -259,6 +259,7 @@ struct cppi41_host_buf_desc {
 #define CPPI41_PKT_TYPE_USB		5
 #define CPPI41_PKT_TYPE_GENERIC		6
 #define CPPI41_PKT_TYPE_ETHERNET	7
+#define CPPI41_ZLP			(1 << 19)
 #define CPPI41_RETURN_POLICY_SHIFT	15
 #define CPPI41_RETURN_POLICY_MASK	(1 << CPPI41_RETURN_POLICY_SHIFT)
 #define CPPI41_RETURN_LINKED		0

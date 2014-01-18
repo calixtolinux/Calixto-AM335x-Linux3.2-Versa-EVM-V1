@@ -25,7 +25,7 @@
 #define BEAGLE_BONE_OLD		2
 #define BEAGLE_BONE_A3		3
 #define EVM_SK			4
-#define CALIXTO_EVM             5
+#define GEN_PURP_DDR3_EVM	5
 
 /* REVIST : check posibility of PROFILE_(x) syntax usage */
 #define PROFILE_NONE	-1	/* Few EVM doesn't have profiles */
@@ -44,5 +44,8 @@ void am335x_evm_set_id(unsigned int evmid);
 int am335x_evm_get_id(void);
 void am33xx_cpsw_macidfillup(char *eeprommacid0, char *eeprommacid1);
 void am33xx_d_can_init(unsigned int instance);
+
+void am33xx_core_vg_scale_i2c_seq_fillup(char *sleep_seq, size_t ssz,
+					 char *wake_seq, size_t wsz);
 #endif
 #endif

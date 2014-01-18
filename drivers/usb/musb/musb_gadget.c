@@ -410,9 +410,18 @@ static void txstate(struct musb *musb, struct musb_request *req)
 			if (request_size == 0)
 				csr &= ~(MUSB_TXCSR_DMAENAB |
 					MUSB_TXCSR_DMAMODE);
-			else
-				csr |= MUSB_TXCSR_DMAENAB | MUSB_TXCSR_DMAMODE |
-				       MUSB_TXCSR_MODE;
+			else {
+				csr &= ~(MUSB_TXCSR_DMAENAB |
+					MUSB_TXCSR_DMAMODE);
+				if (!musb->tx_isoc_sched_enable ||
+					musb_ep->type !=
+					USB_ENDPOINT_XFER_ISOC) {
+					csr |= MUSB_TXCSR_DMAENAB |
+						MUSB_TXCSR_DMAMODE |
+						MUSB_TXCSR_MODE;
+				}
+			}
+
 			musb_writew(epio, MUSB_TXCSR,
 				(MUSB_TXCSR_P_WZC_BITS & ~MUSB_TXCSR_P_UNDERRUN)
 					| csr);
@@ -939,9 +948,6 @@ void musb_g_rx(struct musb *musb, u8 epnum)
 	}
 
 	if (dma && (csr & MUSB_RXCSR_DMAENAB)) {
-		csr &= ~(MUSB_RXCSR_AUTOCLEAR
-				| MUSB_RXCSR_DMAENAB
-				| MUSB_RXCSR_DMAMODE);
 		musb_writew(epio, MUSB_RXCSR,
 			MUSB_RXCSR_P_WZC_BITS | csr);
 
@@ -1931,6 +1937,7 @@ static int musb_gadget_start(struct usb_gadget *g,
 		 * ensures HdrcStart is indirectly called.
 		 */
 		retval = usb_add_hcd(musb_to_hcd(musb), -1, 0);
+		device_set_wakeup_enable(musb->controller, 0);
 		if (retval < 0) {
 			dev_dbg(musb->controller, "add_hcd failed, %d\n", retval);
 			goto err2;

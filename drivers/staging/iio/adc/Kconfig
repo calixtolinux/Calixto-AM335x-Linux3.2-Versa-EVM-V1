@@ -194,10 +194,11 @@ config MAX1363_RING_BUFFER
 	  ADC driver.
 
 config TI_ADC
-       tristate "TI's ADC driver"
-       help
-         Say yes here to build support for Texas Instruments ADC
-         driver which is also a MFD.
-         To compile this driver as a module, choose M here: the
-         module will be called ti_adc.
+	tristate "TI's ADC driver"
+	help
+	  Say yes here to build support for Texas Instruments ADC
+	  driver which is also a MFD.
+	  To compile this driver as a module, choose M here: the
+	  module will be called ti_adc.
+
 endmenu

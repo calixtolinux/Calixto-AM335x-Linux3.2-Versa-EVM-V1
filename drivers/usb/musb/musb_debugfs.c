@@ -103,7 +103,7 @@ static const struct musb_register_map musb_regmap[] = {
 	{  }	/* Terminating Entry */
 };
 
-static struct dentry *musb_debugfs_root;
+static struct dentry *musb_debugfs_root[2];
 
 static int musb_regdump_show(struct seq_file *s, void *unused)
 {
@@ -203,10 +203,10 @@ static ssize_t musb_test_mode_write(struct file *file,
 		test = MUSB_TEST_FIFO_ACCESS;
 
 	if (!strncmp(buf, "force full-speed", 15))
-		test = MUSB_TEST_FORCE_FS;
+		test = MUSB_TEST_FORCE_FS | MUSB_TEST_FORCE_HOST;
 
 	if (!strncmp(buf, "force high-speed", 15))
-		test = MUSB_TEST_FORCE_HS;
+		test = MUSB_TEST_FORCE_HS | MUSB_TEST_FORCE_HOST;
 
 	if (!strncmp(buf, "test packet", 10)) {
 		test = MUSB_TEST_PACKET;
@@ -223,6 +223,10 @@ static ssize_t musb_test_mode_write(struct file *file,
 		test = MUSB_TEST_SE0_NAK;
 
 	musb_writeb(musb->mregs, MUSB_TESTMODE, test);
+	if (test == MUSB_TEST_PACKET)
+		musb_writew(musb->endpoints[0].regs,
+			MUSB_CSR0, MUSB_CSR0_TXPKTRDY);
+	pr_info("%smusb%d: test-mode value %x\n", buf, musb->id, test);
 
 	return count;
 }
@@ -241,7 +245,7 @@ int __devinit musb_init_debugfs(struct musb *musb)
 	struct dentry		*file;
 	int			ret;
 
-	root = debugfs_create_dir("musb", NULL);
+	root = debugfs_create_dir(dev_name(musb->controller), NULL);
 	if (IS_ERR(root)) {
 		ret = PTR_ERR(root);
 		goto err0;
@@ -261,7 +265,7 @@ int __devinit musb_init_debugfs(struct musb *musb)
 		goto err1;
 	}
 
-	musb_debugfs_root = root;
+	musb_debugfs_root[musb->id] = root;
 
 	return 0;
 
@@ -274,5 +278,5 @@ err0:
 
 void /* __devinit_or_exit */ musb_exit_debugfs(struct musb *musb)
 {
-	debugfs_remove_recursive(musb_debugfs_root);
+	debugfs_remove_recursive(musb_debugfs_root[musb->id]);
 }
