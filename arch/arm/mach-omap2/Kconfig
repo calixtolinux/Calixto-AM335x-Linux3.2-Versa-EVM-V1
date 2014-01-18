@@ -342,6 +342,11 @@ config MACH_AM335XIAEVM
 	depends on SOC_OMAPAM33XX
 	default y
 
+config CALIXTO_AM335XNXT
+	bool "Calixto AM335x NXT Module"
+        depends on SOC_OMAPAM33XX
+        default y
+
 config MACH_OMAP_4430SDP
 	bool "OMAP 4430 SDP board"
 	default y
@@ -413,6 +418,83 @@ config OMAP3_EDMA
 	help
 	  Select this option if EDMA is used
 
+config CALIXTO_PHERIPHERIAL_CONFIGURATION
+       bool "Calixto-EVM Pheripheral Configuration"
+       default n
+       depends on SOC_OMAPAM33XX
+       help
+          Select Multiple Pheripherals Operation in the SOM
+
+config CALIXTO_WLAN_SUPPORT
+       bool "Calixto-EVM Wireless Interface"
+       default n
+       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
+       help
+          Choose Y to Enable the Wireless interface for
+          Calixto-EVM.
+
+choice
+       prompt "Calixto-EVM Interface Configure-I"
+       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
+
+config  CALIXTO_BLUETOOTH_SUPPORT
+        bool "BLUETOOTH"
+        depends on CALIXTO_WLAN_SUPPORT
+        help
+	Select for Enabling Bluetooth Interface.
+
+config CALIXTO_CAN_SUPPORT
+       bool "CAN0"
+       help
+         Support for CAN0 for Calixto-EVM
+endchoice
+
+choice
+       prompt "Calixto-EVM Interface Configure-II"
+       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
+
+config CALIXTO_RS485_SUPPORT
+       bool "RS485"
+       help
+         Support for RS485 for Calixto-EVM
+
+endchoice
+
+choice
+       prompt "Calixto-EVM Display_Support"
+       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
+
+config CALIXTO_VGA_SUPPORT
+       bool "VGA 640@480 Resolution Support"
+       help
+         By Default EVM Supports Only VGA Interface
+
+config CALIXTO_VGA_1280X720
+       bool "VGA 1280@720 Resolution Support"
+       help
+         Switch to 1280@720 VGA Support
+
+config CALIXTO_LCD4_SUPPORT
+       bool "4.7-Inch LCD support"
+       help
+         Support for 4.7 Inch LCD Support for Calixto-EVM
+
+config CALIXTO_LCD7_SUPPORT_OLD
+       bool "7-Inch LCD support-old"
+       help
+         Support for 7 Inch LCD Support for Calixto-EVM
+
+config CALIXTO_LCD7_SUPPORT_NEW
+       bool "7-Inch LCD support-new"
+       help
+         Support for 7 Inch LCD Support for Calixto-EVM
+
+config CALIXTO_LCD35_SUPPORT
+       bool "3.5-Inch LCD support"
+       help
+         Support for 3.5 Inch LCD Support for Calixto-EVM
+
+endchoice
 endmenu
 
 endif

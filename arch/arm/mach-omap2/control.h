@@ -377,7 +377,7 @@
 #define AM33XX_RMII_MODE_EN		((1 << 0) | (1 << 2))
 #define AM33XX_RGMII_MODE_EN		((0x2 << 0) | (0x2 << 2) | \
 					(AM33XX_RGMII_DISABLE_INT_DLY))
-
+#define CALIXTO_EVM_ETHERNET_MODE_EN    ((1 << 7) | (1 << 6) | (0 << 2) | (1 << 0))
 /*
  * CONTROL AM33XX PWMSS_CTRL register to enable time base clock Enable
  */

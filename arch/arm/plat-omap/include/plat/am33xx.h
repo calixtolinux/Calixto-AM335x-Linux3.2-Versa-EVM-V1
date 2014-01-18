@@ -89,6 +89,7 @@ enum am33xx_cpsw_mac_mode {
 	AM33XX_CPSW_MODE_MII,
 	AM33XX_CPSW_MODE_RMII,
 	AM33XX_CPSW_MODE_RGMII,
+	CALIXTO_EVM_ETHERNET_INTERFACE,
 };
 int am33xx_cpsw_init(enum am33xx_cpsw_mac_mode mode, unsigned char *phy_id0,
 		     unsigned char *phy_id1);
