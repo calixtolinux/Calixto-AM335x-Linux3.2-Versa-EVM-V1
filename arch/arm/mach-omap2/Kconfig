@@ -447,11 +447,6 @@ config CALIXTO_CAN_SUPPORT
        bool "CAN0"
        help
          Support for CAN0 for Calixto-EVM
-endchoice
-
-choice
-       prompt "Calixto-EVM Interface Configure-II"
-       depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
 
 config CALIXTO_RS485_SUPPORT
        bool "RS485"
