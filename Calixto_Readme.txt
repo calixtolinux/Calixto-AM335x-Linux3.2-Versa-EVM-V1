@@ -31,9 +31,7 @@ While compiling your Kernel, if found any firmware related error,
      
     -> Download the firmware from the GIT Location (https://github.com/calixtolinux/Calixto-AM335x-Linux-Firmware.git)
     -> Copy Downloaded file to Kernel-Directory/firmware/
-
     -> Recompile the Kernel by make uImage
-
 
 3> Calixto Pheripheral Configuration
    

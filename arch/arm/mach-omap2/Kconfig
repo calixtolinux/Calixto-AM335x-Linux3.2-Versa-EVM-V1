@@ -439,7 +439,7 @@ choice
 
 config  CALIXTO_BLUETOOTH_SUPPORT
         bool "BLUETOOTH"
-        depends on CALIXTO_WLAN_SUPPORT
+        depends on CALIXTO_WLAN_SUPPORT && CALIXTO_PHERIPHERIAL_CONFIGURATION
         help
 	Select for Enabling Bluetooth Interface.
 
