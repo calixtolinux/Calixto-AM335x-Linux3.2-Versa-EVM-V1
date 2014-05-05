@@ -259,7 +259,7 @@ static const struct soc_enum aic3x_enum[] = {
  */
 static DECLARE_TLV_DB_SCALE(dac_tlv, -6350, 50, 0);
 /* ADC PGA gain volumes. From 0 to 59.5 dB in 0.5 dB steps */
-static DECLARE_TLV_DB_SCALE(adc_tlv, 0, 50, 0);
+static DECLARE_TLV_DB_SCALE(adc_tlv, 5950, 50, 0);
 /*
  * Output stage volumes. From -78.3 to 0 dB. Muted below -78.3 dB.
  * Step size is approximately 0.5 dB over most of the scale but increasing

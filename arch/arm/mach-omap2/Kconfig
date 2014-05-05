@@ -470,7 +470,7 @@ config CALIXTO_VGA_1280X720
          Switch to 1280@720 VGA Support
 
 config CALIXTO_LCD4_SUPPORT
-       bool "4.7-Inch LCD support"
+       bool "4.3-Inch LCD support"
        help
          Support for 4.7 Inch LCD Support for Calixto-EVM
 

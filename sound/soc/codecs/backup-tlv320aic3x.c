@@ -257,7 +257,7 @@ static const struct soc_enum aic3x_enum[] = {
 /*
  * DAC digital volumes. From -63.5 to 0 dB in 0.5 dB steps
  */
-static DECLARE_TLV_DB_SCALE(dac_tlv, -6350, 50, 0);
+static DECLARE_TLV_DB_SCALE(dac_tlv, 0, 50, 0);
 /* ADC PGA gain volumes. From 0 to 59.5 dB in 0.5 dB steps */
 static DECLARE_TLV_DB_SCALE(adc_tlv, 0, 50, 0);
 /*
@@ -269,7 +269,7 @@ static DECLARE_TLV_DB_SCALE(adc_tlv, 0, 50, 0);
  * so much). This setting shows -50 dB (actual is -50.3 dB) for register
  * value 100 and -58.5 dB (actual is -78.3 dB) for register value 117.
  */
-static DECLARE_TLV_DB_SCALE(output_stage_tlv, -5900, 50, 1);
+static DECLARE_TLV_DB_SCALE(output_stage_tlv, 0, 50, 1);
 
 static const struct snd_kcontrol_new aic3x_snd_controls[] = {
 	/* Output */
