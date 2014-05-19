@@ -21,7 +21,7 @@
 #include <linux/gpio.h>
 #include <linux/spi/spi.h>
 #include <linux/spi/flash.h>
-#include <linux/gpio_keys.h>
+#include <linux/gpio_info.h>
 #include <linux/input.h>
 #include <linux/input/matrix_keypad.h>
 #include <linux/mtd/mtd.h>
@@ -386,6 +386,14 @@ static struct pinmux_config can_pin_mux[] = {
 static struct pinmux_config rs485_uart1_pin_mux[] = {
         {"uart1_rxd.uart1_rxd", OMAP_MUX_MODE0 | AM33XX_PIN_INPUT_PULLUP},
         {"uart1_txd.uart1_txd", OMAP_MUX_MODE0 | AM33XX_PULL_ENBL},
+        {NULL, 0},
+};
+
+/* Module Pin Mux for LED's Carrier Board */
+static struct pinmux_config evm_gpio_pin_mux[] = {
+        {"mcasp0_ahclkr.gpio3_17", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT}, /*LED_D6 */
+        {"mcasp0_aclkr.gpio3_18",  OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT}, /*LED_D7 */
+        {"mcasp0_fsr.gpio3_19",    OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT}, /*LED_D8 */
         {NULL, 0},
 };
 
@@ -856,6 +864,55 @@ static void mmc0_init(int evm_id, int profile)
      return;
 }
 
+/* EVM GPIO PIN Info */
+static struct gpio_info_button evm_gpio_buttons[] = {
+        {
+                .gpio           = GPIO_TO_PIN(3, 17),
+                .direction      = OUTPUT,
+                .default_level  = LOW,
+                .id             = 1,
+                .name           = "led_d6",
+        },
+        {
+                .gpio           = GPIO_TO_PIN(3, 18),
+                .direction      = OUTPUT,
+                .default_level  = LOW,
+                .id             = 2,
+                .name           = "led_d7",
+        },
+        {
+                .gpio           = GPIO_TO_PIN(3, 19),
+                .direction      = OUTPUT,
+                .default_level  = LOW,
+                .id             = 3,
+                .name           = "led_d8",
+        },
+};
+
+static struct gpio_info_platform_data evm_gpio_key_info = {
+        .buttons        = evm_gpio_buttons,
+        .nbuttons       = ARRAY_SIZE(evm_gpio_buttons),
+};
+
+static struct platform_device evm_gpio_regs = {
+        .name               = "gpio_driver",
+        .id                 = -1,
+        .dev.platform_data  = &evm_gpio_key_info,
+};
+
+static void evm_gpio_init(int evm_id, int profile)
+{
+     int err;
+
+     setup_pin_mux(evm_gpio_pin_mux);
+     err = platform_device_register(&evm_gpio_regs);
+
+        if(err)
+           printk("Error while registering gpio_driver\n");
+
+       return;
+}
+
 /* setup spi0 */
 static void spi0_init(int evm_id, int profile)
 {
@@ -1000,6 +1057,9 @@ static struct evm_dev_cfg calixto_dev_cfg[] = {
         {uart3_init,	DEV_ON_BASEBOARD, PROFILE_NONE},
 	#ifdef CONFIG_CALIXTO_RS485_SUPPORT
         {rs485_uart1_init, DEV_ON_BASEBOARD, PROFILE_NONE},
+	#endif
+	#ifdef CONFIG_CALIXTO_EVM_GPIO_DRIVER_SUPPORT	
+	{evm_gpio_init, DEV_ON_BASEBOARD, PROFILE_NONE},
 	#endif
         {NULL, 0, 0},
 };

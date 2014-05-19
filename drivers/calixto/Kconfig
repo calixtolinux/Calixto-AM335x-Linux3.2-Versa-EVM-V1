@@ -1,0 +1,7 @@
+config CALIXTO_EVM_GPIO_DRIVER_SUPPORT
+	bool "GPIO Driver Support for Calixto EVM Board"
+	default y
+	depends on CALIXTO_PHERIPHERIAL_CONFIGURATION
+	help
+	Choose Y to Enable GPIO Driver for
+	Calixto EVM Board

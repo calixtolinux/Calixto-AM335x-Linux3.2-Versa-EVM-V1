@@ -425,6 +425,8 @@ config CALIXTO_PHERIPHERIAL_CONFIGURATION
        help
           Select Multiple Pheripherals Operation in the SOM
 
+source "drivers/calixto/Kconfig"
+
 config CALIXTO_WLAN_SUPPORT
        bool "Calixto-EVM Wireless Interface"
        default n
@@ -472,7 +474,7 @@ config CALIXTO_VGA_1280X720
 config CALIXTO_LCD4_SUPPORT
        bool "4.3-Inch LCD support"
        help
-         Support for 4.7 Inch LCD Support for Calixto-EVM
+         Support for 4.3 Inch LCD Support for Calixto-EVM
 
 config CALIXTO_LCD7_SUPPORT_OLD
        bool "7-Inch LCD support-old"
