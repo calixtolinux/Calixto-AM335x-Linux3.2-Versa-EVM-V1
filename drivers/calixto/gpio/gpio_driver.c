@@ -25,7 +25,7 @@
 
 #define EVM_IOC_MAGIC  'c'
 #define START_EVM_IOCTL_OUT	_IOW(EVM_IOC_MAGIC, 1, int)
-#define START_EVM_IOCTL_IN	_IOW(EVM_IOC_MAGIC, 2, int)
+#define START_EVM_IOCTL_IN	_IOR(EVM_IOC_MAGIC, 2, struct gpio_info *)
 
 struct user_input_data {
         int id;
