@@ -102,7 +102,7 @@ static long gpio_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 
           		if (gpbuttons[ijk].id == gpdev->user_data.id){
                			printk("Found ID: %d\n", gpbuttons[ijk].id);
-               			gpdev->user_data.value = gpio_direction_input(gpbuttons[ijk].gpio);
+               			gpdev->user_data.value = gpio_get_value(gpbuttons[ijk].gpio);
                			printk("GPIO Name: %s has Input level: %d\n", gpbuttons[ijk].name, gpdev->user_data.value);
               		 	break;
                         }
