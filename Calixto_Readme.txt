@@ -5,7 +5,7 @@ After Downloading the Kernel from GIT,
 1> Setuping the Compiler Path
   
 Eg:
-     -> Downlod ToolChain from Following Link https://github.com/calixtolinux/am335x-toolchain.git
+     -> Download ToolChain from Following Link https://github.com/calixtolinux/am335x-toolchain.git
      -> cp  linux-devkit.tar.gz /opt
      -> tar -xvf linux-devkit.tar.gz
      -> edit ~/.bashrc Add the Following Line at end
