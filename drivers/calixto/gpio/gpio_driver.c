@@ -109,7 +109,7 @@ static long gpio_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
     		}
 		
 		spin_unlock(&gpdev->sp_lock);
-		err = copy_to_user(&gpdev->user_data, (struct user_input_data *)arg, sizeof(struct user_input_data));
+		err = copy_to_user( (struct user_input_data *)arg, &gpdev->user_data, sizeof(struct user_input_data));
            
 	   break;
 	}	

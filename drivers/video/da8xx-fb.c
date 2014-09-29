@@ -340,6 +340,21 @@ static struct da8xx_panel known_lcd_panels[] = {
                 .pxl_clk = 30000000,
                 .invert_pxl_clk = 0,
         },
+	[8] = {
+                .name = "LCDTIANMA",
+                .width = 800,
+                .height = 480,
+                .hfp = 210,
+                .hbp = 46,
+                .hsw = 1,
+                .vfp = 22,
+                .vbp = 23,
+                .vsw = 3,
+                .pxl_clk = 33300000,
+                .invert_pxl_clk = 0,
+        },
+
+
 };
 
 /* Enable the Raster Engine of the LCD Controller */
