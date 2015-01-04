@@ -347,6 +347,11 @@ config CALIXTO_AM335XNXT
         depends on SOC_OMAPAM33XX
         default y
 
+config CALIXTO_AM335XCE
+        bool "Calixto AM335x NXT Compact EVM"
+        depends on SOC_OMAPAM33XX
+        default y
+
 config MACH_OMAP_4430SDP
 	bool "OMAP 4430 SDP board"
 	default y

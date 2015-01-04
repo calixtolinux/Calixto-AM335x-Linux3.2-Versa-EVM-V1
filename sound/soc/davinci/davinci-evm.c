@@ -24,7 +24,7 @@
 
 #include <asm/hardware/asp.h>
 #include <mach/edma.h>
-#ifdef CONFIG_MACH_AM335XEVM
+#if defined (CONFIG_MACH_AM335XEVM) || defined(CONFIG_CALIXTO_AM335XNXT) || defined(CONFIG_CALIXTO_AM335XCE)
 #include <mach/board-am335xevm.h>
 #endif
 
@@ -62,6 +62,9 @@ static int evm_hw_params(struct snd_pcm_substream *substream,
 	else if (machine_is_am335xevm())
 		sysclk = 24576000;
 
+	else if (machine_is_am335xcevm())
+		sysclk = 24576000;
+	
 	else
 		return -EINVAL;
 
@@ -330,6 +333,10 @@ static int __init evm_init(void)
 	} else if (machine_is_am335xevm()) {
 		evm_snd_dev_data = &am335x_snd_soc_card;
 		index = 0;
+	} else if (machine_is_am335xcevm()) {
+                evm_snd_dev_data = &am335x_snd_soc_card;
+                index = 0;
+
 	} else
 		return -EINVAL;
 
