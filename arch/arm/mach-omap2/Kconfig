@@ -348,7 +348,12 @@ config CALIXTO_AM335XNXT
         default y
 
 config CALIXTO_AM335XCE
-        bool "Calixto AM335x NXT Compact EVM"
+        bool "Calixto AM335x NXT Module Compact EVM"
+        depends on SOC_OMAPAM33XX
+        default y
+
+config CALIXTO_AM335XST
+        bool "Calixto AM335x STAMP Module Compact EVM"
         depends on SOC_OMAPAM33XX
         default y
 

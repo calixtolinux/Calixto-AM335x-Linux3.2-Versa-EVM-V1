@@ -256,6 +256,7 @@ obj-$(CONFIG_MACH_TI8148EVM)		+= board-ti8168evm.o
 obj-$(CONFIG_MACH_AM335XEVM)		+= board-calixto-evm.o
 obj-$(CONFIG_MACH_AM335XIAEVM)		+= board-calixto-evm.o
 obj-$(CONFIG_CALIXTO_AM335XCE)		+= board-calixto-lc-evm.o
+obj-$(CONFIG_CALIXTO_AM335XST)		+= board-calixto-stamp-evm.o
 
 # Platform specific device init code
 
