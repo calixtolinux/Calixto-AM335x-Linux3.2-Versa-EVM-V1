@@ -910,6 +910,9 @@ static int omap_correct_data(struct mtd_info *mtd, u_char *dat,
 		eccsize = BCH8_ECC_OOB_BYTES;
 
 		for (i = 0; i < blockCnt; i++) {
+			if (memcmp(read_ecc, calc_ecc, 13) == 0) {
+				continue;
+			}
 			eccflag = 0;
 			/* check if area is flashed */
 			for (j = 0; (j < eccsize) && (eccflag == 0); j++)
@@ -1216,7 +1219,6 @@ static int __devinit omap_nand_probe(struct platform_device *pdev)
 		} else if (pdata->ecc_opt == OMAP_ECC_BCH8_CODE_HW) {
 			info->nand.ecc.bytes     = OMAP_BCH8_ECC_SECT_BYTES;
 			info->nand.ecc.size      = 512;
-			info->nand.ecc.read_page = omap_read_page_bch;
 		} else {
 			info->nand.ecc.bytes    = 3;
 			info->nand.ecc.size     = 512;

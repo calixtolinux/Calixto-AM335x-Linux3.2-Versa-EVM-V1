@@ -1994,12 +1994,27 @@ static void nand_write_page_hwecc(struct mtd_info *mtd, struct nand_chip *chip,
 	uint8_t *ecc_calc = chip->buffers->ecccalc;
 	const uint8_t *p = buf;
 	uint32_t *eccpos = chip->ecc.layout->eccpos;
+	int *tmp = (int *)buf ;
+	int count = 0;
+	int correctme = 0;
+	
+	while((*tmp == 0xffffffff) && count < (eccsize * eccsteps) ) {
+		tmp++;
+		count += sizeof(int);
+	}
+
+	if (count >= (eccsize * eccsteps))
+		correctme = 1;
 
 	memset(ecc_calc, 0, eccsteps * eccbytes);
 	for (i = 0; eccsteps; eccsteps--, i += eccbytes, p += eccsize) {
 		chip->ecc.hwctl(mtd, NAND_ECC_WRITE);
 		chip->write_buf(mtd, p, eccsize);
 		chip->ecc.calculate(mtd, p, &ecc_calc[i]);
+	
+		if(correctme) {
+			 memset(&ecc_calc[i], 0xff, eccbytes);
+		}
 	}
 
 	for (i = 0; i < chip->ecc.total; i++)
